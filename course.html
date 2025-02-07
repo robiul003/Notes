@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title">Course Page</title>
+    <title>Course Page</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -56,6 +56,12 @@
             font-size: 1rem; 
             cursor: pointer; 
         }
+        footer {
+            margin-top: 20px;
+            color: white;
+            font-size: 0.9rem;
+            font-family: 'Poppins', sans-serif;
+        }
     </style>
 </head>
 <body>
@@ -63,6 +69,11 @@
     <h1 id="course-title">Course</h1>
     <div class="button-container" id="button-container"></div>
     <button class="back-btn" onclick="goBack()">⬅ Back to Home</button>
+
+    <footer>
+        <p>Copyright Md Robiul Hossain (2025)</p>
+        <p>Note: This is only for Spring 25 3rd Semester</p>
+    </footer>
 
     <script>
         const params = new URLSearchParams(window.location.search);
@@ -83,11 +94,10 @@
         const container = document.getElementById('button-container');
 
         if (courseOptions[courseName]) {
-            courseOptions[courseName].forEach((option, index) => {
+            courseOptions[courseName].forEach((option) => {
                 const btn = document.createElement("button");
                 btn.classList.add("option-btn");
                 btn.textContent = option;
-                btn.style.animationDelay = `${index * 0.1}s`; 
                 container.appendChild(btn);
             });
         } else {

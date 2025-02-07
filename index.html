@@ -234,6 +234,14 @@
     </footer>
 
     <script>
+        const courseStructure = {
+            'EEE 111': ['Books', 'Hand Notes'],
+            'EEE 112': ['Lab Reports'],
+            'MATH 207': ['Hand Notes'],
+            'CSE 211': ['Books', 'Hand Notes'],
+            'CSE 212': ['Assignment', 'Problems']
+        };
+
         const routineData = [
             {
                 name: "Section 1",
@@ -333,7 +341,53 @@
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         dateElement.textContent = new Date().toLocaleDateString('en-US', options);
 
-        document.getElementById('routineBtn').addEventListener('click', showRoutine);
+        // Handle course button clicks
+        document.querySelectorAll('.subject-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const course = this.dataset.course;
+                if (course) {
+                    showSubOptions(course);
+                } else if (this.id === 'routineBtn') {
+                    showRoutine();
+                }
+            });
+        });
+
+        function showSubOptions(course) {
+            const mainOptions = document.querySelector('.main-options');
+            const subOptions = document.getElementById('subOptions');
+            const pageTitle = document.getElementById('pageTitle');
+            const backBtn = document.querySelector('.back-btn');
+            const routineContainer = document.getElementById('routineContainer');
+
+            // Hide routine container if visible
+            routineContainer.style.display = 'none';
+            
+            // Update title and show back button
+            pageTitle.textContent = course;
+            backBtn.style.display = 'block';
+            
+            // Hide main options
+            mainOptions.style.display = 'none';
+            
+            // Generate sub-options
+            subOptions.innerHTML = courseStructure[course].map(option => `
+                <button class="subject-btn" onclick="handleSubOption('${course}', '${option}')">
+                    ${option}
+                </button>
+            `).join('');
+            
+            // Show sub-options with animation
+            subOptions.style.display = 'grid';
+            subOptions.classList.add('fadeInUp');
+            
+            // Animate sub-buttons
+            const subButtons = subOptions.querySelectorAll('.subject-btn');
+            subButtons.forEach((btn, index) => {
+                btn.style.animation = `fadeInUp 0.5s ease ${index * 0.1}s forwards`;
+                btn.style.opacity = 0;
+            });
+        }
 
         function showRoutine() {
             const mainOptions = document.querySelector('.main-options');
@@ -342,11 +396,15 @@
             const backBtn = document.querySelector('.back-btn');
             const routineContainer = document.getElementById('routineContainer');
 
+            // Update title and show back button
             pageTitle.textContent = 'Routine';
             backBtn.style.display = 'block';
+            
+            // Hide main options and sub-options
             mainOptions.style.display = 'none';
             subOptions.style.display = 'none';
-
+            
+            // Generate routine content
             routineContainer.innerHTML = routineData.map(section => `
                 <div class="routine-section">
                     <h2>${section.name}</h2>
@@ -368,7 +426,8 @@
                     </table>
                 </div>
             `).join('');
-
+            
+            // Show routine container with animation
             routineContainer.style.display = 'block';
             routineContainer.classList.add('fadeInUp');
         }
@@ -380,17 +439,27 @@
             const backBtn = document.querySelector('.back-btn');
             const routineContainer = document.getElementById('routineContainer');
 
+            // Reset title and hide back button
             pageTitle.textContent = 'Note Treasures';
             backBtn.style.display = 'none';
+            
+            // Hide sub-options and routine container
             subOptions.style.display = 'none';
             routineContainer.style.display = 'none';
+            
+            // Show main options with animation
             mainOptions.style.display = 'grid';
-
             const mainButtons = mainOptions.querySelectorAll('.subject-btn');
             mainButtons.forEach((btn, index) => {
                 btn.style.animation = `fadeInUp 0.5s ease ${index * 0.1}s forwards`;
                 btn.style.opacity = 0;
             });
+        }
+
+        function handleSubOption(course, option) {
+            // Here you can handle what happens when a sub-option is clicked
+            alert(`Navigating to: ${course} > ${option}\n\n(Actual navigation to be implemented)`);
+            // Example: window.location.href = `/${course}/${option}`;
         }
 
         // Initial button animations

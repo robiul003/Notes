@@ -7,12 +7,55 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { min-height: 100vh; background: linear-gradient(135deg, #667eea, #764ba2); text-align: center; padding: 20px; }
-        h1 { color: white; font-size: 3rem; font-family: 'Playfair Display', serif; }
-        .button-container { display: flex; flex-direction: column; gap: 10px; padding: 20px; max-width: 400px; margin: auto; }
-        .option-btn { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(5px); border: none; padding: 15px; border-radius: 10px; color: white; font-size: 1.2rem; cursor: pointer; transition: all 0.3s; }
-        .option-btn:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-3px); }
-        .back-btn { margin-top: 20px; background: rgba(255, 255, 255, 0.2); padding: 10px; border-radius: 8px; font-size: 1rem; cursor: pointer; }
+        body { 
+            min-height: 100vh; 
+            background: linear-gradient(135deg, #667eea, #764ba2); 
+            text-align: center; 
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center;
+        }
+        h1 { 
+            color: white; 
+            font-size: 3rem; 
+            font-family: 'Playfair Display', serif; 
+            animation: fadeInDown 1s ease;
+        }
+        .button-container { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 10px; 
+            padding: 20px; 
+            max-width: 400px; 
+            margin: auto;
+        }
+        .option-btn { 
+            background: rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(5px); 
+            border: none; 
+            padding: 15px; 
+            border-radius: 10px; 
+            color: white; 
+            font-size: 1.2rem; 
+            cursor: pointer; 
+            transition: all 0.3s;
+            opacity: 0;
+            animation: fadeInUp 0.5s ease forwards;
+        }
+        .option-btn:hover { 
+            background: rgba(255, 255, 255, 0.2); 
+            transform: translateY(-3px);
+        }
+        .back-btn { 
+            margin-top: 20px; 
+            background: rgba(255, 255, 255, 0.2); 
+            padding: 10px; 
+            border-radius: 8px; 
+            font-size: 1rem; 
+            cursor: pointer; 
+        }
     </style>
 </head>
 <body>
@@ -22,15 +65,12 @@
     <button class="back-btn" onclick="goBack()">⬅ Back to Home</button>
 
     <script>
-        // Retrieve course name from URL
         const params = new URLSearchParams(window.location.search);
         const courseName = params.get('course');
         
-        // Set title
         document.title = `${courseName} - Note Treasures`;
         document.getElementById('course-title').textContent = courseName;
 
-        // Course-specific buttons
         const courseOptions = {
             "EEE 111": ["Books", "Hand Notes"],
             "EEE 112": ["Lab Reports"],
@@ -41,12 +81,13 @@
         };
 
         const container = document.getElementById('button-container');
-        
+
         if (courseOptions[courseName]) {
-            courseOptions[courseName].forEach(option => {
+            courseOptions[courseName].forEach((option, index) => {
                 const btn = document.createElement("button");
                 btn.classList.add("option-btn");
                 btn.textContent = option;
+                btn.style.animationDelay = `${index * 0.1}s`; 
                 container.appendChild(btn);
             });
         } else {

@@ -6,8 +6,118 @@
     <title>Note Treasures - Spring 25</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* Previous CSS remains the same, adding new styles for routine */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            animation: fadeInDown 1s ease;
+            position: relative;
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 4rem;
+            font-family: 'Playfair Display', serif;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+            letter-spacing: 1.5px;
+            transition: all 0.3s ease;
+        }
+
+        .beta-tag {
+            color: #ffd700;
+            font-size: 1.2rem;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 2px;
+            font-weight: 500;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 40px 0;
+            animation: fadeInUp 1s ease;
+        }
+
+        .subject-btn {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border: none;
+            padding: 20px;
+            border-radius: 15px;
+            color: white;
+            font-size: 1.2rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform: translateY(0);
+            letter-spacing: 0.5px;
+        }
+
+        .subject-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.2);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            opacity: 1;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .sub-options {
+            display: none;
+        }
+
         .routine-container {
+            display: none;
             color: white;
             font-family: 'Poppins', sans-serif;
             margin-top: 20px;
@@ -44,7 +154,45 @@
             font-weight: 500;
         }
 
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         @media (max-width: 768px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            footer {
+                flex-direction: column;
+                text-align: center;
+                gap: 5px;
+            }
+
+            .back-btn {
+                position: static;
+                transform: none;
+                margin-top: 20px;
+            }
+
             .routine-table th,
             .routine-table td {
                 padding: 8px;
@@ -86,37 +234,104 @@
     </footer>
 
     <script>
-        const routineData = {
-            sections: [
-                {
-                    name: "Section 1",
-                    days: ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
-                    times: ["8:30-10:00", "10:00-11:30", "11:30-01:00", "01:30-03:00", "03:00-04:30", "04:30-06:00"],
-                    schedule: [
-                        ["-", "MATH 207.1 (AHN) 114", "CHEM 201.1 (ARC) 114", "-", "-", "-"],
-                        ["-", "-", "-", "-", "-", "-"],
-                        ["-", "-", "-", "-", "MATH 207.1 (AHN) N202", "EEE 111.1 (TK) N202", "-"],
-                        ["-", "-", "-", "-", "-", "-"],
-                        ["-", "(9:30-11:30) EEE 112.1 (TK) 106", "CSE 211.1 (SAZ) N201", "EEE 111.1 (TK) 312", "-", "-"],
-                        ["-", "(9:30-11:30) CSE 212.1 (SAZ) 313", "CSE 211.1 (SAZ) 311", "CHEM 201.1 (ARC) 311", "-", "-"]
-                    ]
-                },
-                {
-                    name: "Section 2",
-                    days: ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
-                    times: ["8:30-10:00", "10:00-11:30", "11:30-01:00", "01:30-03:00", "03:00-04:30", "04:30-06:00"],
-                    schedule: [
-                        ["-", "CHEM 201.2 (ARC) 110", "MATH 207.2 (AHN) 110", "-", "-", "-"],
-                        ["-", "(9:30-11:30) EEE 112.2 (TK) 106", "CHEM 201.2 (ARC) N204", "EEE 111.2 (TK) 111", "-", "-"],
-                        ["-", "(9:30-11:00) CSE 211.2 (SAZ) 111", "(11:00-12:30) EEE 111.2 (TK) 111", "(1:00-03:00) CSE 212.2 (SAZ) 102", "-", "-"],
-                        ["-", "-", "-", "-", "-", "-"],
-                        ["-", "-", "-", "-", "-", "-"],
-                        ["-", "-", "-", "CSE 211.2 (SAZ) N204", "MATH 207.2 (AHN) N204", "-", "-"]
-                    ]
-                },
-                // Add other sections similarly...
-            ]
-        };
+        const routineData = [
+            {
+                name: "Section 1",
+                days: ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
+                times: ["8:30-10:00", "10:00-11:30", "11:30-01:00", "01:30-03:00", "03:00-04:30", "04:30-06:00"],
+                schedule: [
+                    ["-", "MATH 207.1 (AHN) 114", "CHEM 201.1 (ARC) 114", "-", "-", "-"],
+                    ["-", "-", "-", "-", "-", "-"],
+                    ["-", "-", "-", "-", "MATH 207.1 (AHN) N202", "EEE 111.1 (TK) N202", "-"],
+                    ["-", "-", "-", "-", "-", "-"],
+                    ["-", "(9:30-11:30) EEE 112.1 (TK) 106", "CSE 211.1 (SAZ) N201", "EEE 111.1 (TK) 312", "-", "-"],
+                    ["-", "(9:30-11:30) CSE 212.1 (SAZ) 313", "CSE 211.1 (SAZ) 311", "CHEM 201.1 (ARC) 311", "-", "-"]
+                ]
+            },
+            {
+                name: "Section 2",
+                days: ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
+                times: ["8:30-10:00", "10:00-11:30", "11:30-01:00", "01:30-03:00", "03:00-04:30", "04:30-06:00"],
+                schedule: [
+                    ["-", "CHEM 201.2 (ARC) 110", "MATH 207.2 (AHN) 110", "-", "-", "-"],
+                    ["-", "(9:30-11:30) EEE 112.2 (TK) 106", "CHEM 201.2 (ARC) N204", "EEE 111.2 (TK) 111", "-", "-"],
+                    ["-", "(9:30-11:00) CSE 211.2 (SAZ) 111", "(11:00-12:30) EEE 111.2 (TK) 111", "(1:00-03:00) CSE 212.2 (SAZ) 102", "-", "-"],
+                    ["-", "-", "-", "-", "-", "-"],
+                    ["-", "-", "-", "-", "-", "-"],
+                    ["-", "-", "-", "CSE 211.2 (SAZ) N204", "MATH 207.2 (AHN) N204", "-", "-"]
+                ]
+            },
+            {
+                name: "Section 3",
+                days: ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
+                times: ["8:30-10:00", "10:00-11:30", "11:30-01:00", "01:30-03:00", "03:00-04:30", "04:30-06:00"],
+                schedule: [
+                    ["-", "-", "-", "-", "CHEM 201.3 (ARC) N203", "MATH 207.3 (AHN) N203", "-"],
+                    ["CHEM 201.3 (ARC) N202", "MATH 207.3 (AHN) N202", "(11:30-01:30) EEE 112.3 (TK) 105", "-", "-", "-"],
+                    ["-", "(9:30-11:00) EEE 111.3 (TK) 114", "(11:00-12:30) CSE 211.3 (SAZ) 114", "-", "-", "-"],
+                    ["-", "-", "-", "-", "-", "-"],
+                    ["-", "CSE 211.3 (SAZ) 311", "EEE 111.3 (TK) 311", "(1:30-03:30) CSE 212.3 (SAZ) 115", "-", "-"],
+                    ["-", "-", "-", "-", "-", "-"]
+                ]
+            },
+            {
+                name: "Section 4",
+                days: ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
+                times: ["8:30-10:00", "10:00-11:30", "11:30-01:00", "01:30-03:00", "03:00-04:30", "04:30-06:00"],
+                schedule: [
+                    ["-", "-", "-", "-", "-", "-"],
+                    ["-", "-", "-", "(1:30-03:30) CSE 212.4 (SAB) 313", "MATH 207.4 (AKS) N602", "CSE 211.4 (SAB) N602"],
+                    ["-", "-", "-", "CHEM 201.4 (TMM) 312", "EEE 111.4 (DLMK) 312", "-"],
+                    ["-", "-", "-", "-", "MATH 207.4 (AKS) N203", "CSE 211.4 (SAB) N203"],
+                    ["-", "-", "(11:30-01:30) EEE 112.4 (ABR) 105", "EEE 111.4 (DLMK) N201", "CHEM 201.4 (TMM) N201", "-"],
+                    ["-", "-", "-", "-", "-", "-"]
+                ]
+            },
+            {
+                name: "Section 5",
+                days: ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
+                times: ["8:30-10:00", "10:00-11:30", "11:30-01:00", "01:30-03:00", "03:00-04:30", "04:30-06:00"],
+                schedule: [
+                    ["-", "-", "-", "-", "-", "-"],
+                    ["-", "-", "-", "-", "-", "-"],
+                    ["-", "-", "(11:00-1:00) CSE 212.5 (SAB) 10Z", "CSE 211.5 (SAB) N603", "EEE 111.5 (Dr. MSA) N603", "-"],
+                    ["-", "-", "-", "(1:30-3:30) EEE 112.5 (KA) 106", "CHEM 201.5 (MZC) 111", "MATH 207.5 (RSN) 111"],
+                    ["MATH 207.5 (RSN) 114", "CHEM 201.5 (MZC) 114", "-", "-", "-", "-"],
+                    ["-", "-", "-", "-", "CSE 211.5 (SAB) 107", "EEE 111.5 (Dr. MSA) 107"]
+                ]
+            },
+            {
+                name: "Section 6",
+                days: ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
+                times: ["8:30-10:00", "10:00-11:30", "11:30-01:00", "01:30-03:00", "03:00-04:30", "04:30-05:00"],
+                schedule: [
+                    ["-", "(9:30-11:30) EEE 112.6 (ABR) 106", "(11:30-1:30) CSE 212.6 (AKS) 102", "-", "-", "-"],
+                    ["-", "-", "-", "-", "-", "-"],
+                    ["-", "(9:30-11:00) MATH 207.6 (AHN) N603", "(11:00-12:30) CHEM 201.6 (ARC) N603", "-", "-", "-"],
+                    ["-", "EEE 111.6 (MMC) 312", "CSE 211.6 (AKS) 312", "-", "-", "-"],
+                    ["EEE 111.6 (MMC) 108", "CSE 211.6 (AKS) 108", "-", "-", "-", "-"],
+                    ["MATH 207.6 (AHN) N202", "CHEM 201.6 (ARC) N202", "-", "-", "-", "-"]
+                ]
+            },
+            {
+                name: "Section 7",
+                days: ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
+                times: ["8:30-10:00", "10:00-11:30", "11:30-01:00", "01:30-03:00", "03:00-04:30", "04:30-06:00"],
+                schedule: [
+                    ["-", "(9:30-11:30) CSE 212.7 (AKS)", "(11:30-1:30) EEE 112.7 (ABR)", "-", "-", "-"],
+                    ["-", "-", "-", "-", "EEE 111.7 (ANJ) N203", "CSE 211.7 (AKS) N203"],
+                    ["-", "(9:30-11:00) CHEM 201.7 (ARC)", "(11:00-12:30) CSE 211.7 (AKS)", "-", "-", "-"],
+                    ["-", "-", "-", "-", "-", "-"],
+                    ["MATH 207.7 (AHN) 110", "EEE 111.7 (ANJ) 110", "-", "-", "-", "-"],
+                    ["-", "-", "-", "-", "MATH 207.7 (AHN) N201", "CHEM 201.7 (ARC) N201"]
+                ]
+            }
+        ];
+
+        // Add current date
+        const dateElement = document.getElementById('current-date');
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        dateElement.textContent = new Date().toLocaleDateString('en-US', options);
 
         document.getElementById('routineBtn').addEventListener('click', showRoutine);
 
@@ -132,7 +347,7 @@
             mainOptions.style.display = 'none';
             subOptions.style.display = 'none';
 
-            routineContainer.innerHTML = routineData.sections.map(section => `
+            routineContainer.innerHTML = routineData.map(section => `
                 <div class="routine-section">
                     <h2>${section.name}</h2>
                     <table class="routine-table">

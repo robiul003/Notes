@@ -58,13 +58,11 @@
             background: rgba(255, 255, 255, 0.2); 
             transform: translateY(-3px);
         }
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        footer {
+            margin-top: 20px;
+            color: white;
+            font-size: 0.9rem;
+            font-family: 'Poppins', sans-serif;
         }
     </style>
 </head>
@@ -74,18 +72,27 @@
     <div class="beta-tag">Beta Version</div>
 
     <div class="button-grid">
-        <button class="subject-btn" onclick="navigateToCourse('EEE 111')" style="animation-delay: 0.1s;">EEE 111</button>
-        <button class="subject-btn" onclick="navigateToCourse('EEE 112')" style="animation-delay: 0.2s;">EEE 112</button>
-        <button class="subject-btn" onclick="navigateToCourse('MATH 207')" style="animation-delay: 0.3s;">MATH 207</button>
-        <button class="subject-btn" onclick="navigateToCourse('CSE 211')" style="animation-delay: 0.4s;">CSE 211</button>
-        <button class="subject-btn" onclick="navigateToCourse('CSE 212')" style="animation-delay: 0.5s;">CSE 212</button>
-        <button class="subject-btn" onclick="navigateToCourse('Routine')" style="animation-delay: 0.6s;">Routine</button>
+        <button class="subject-btn" onclick="navigateToCourse('EEE 111')">EEE 111</button>
+        <button class="subject-btn" onclick="navigateToCourse('EEE 112')">EEE 112</button>
+        <button class="subject-btn" onclick="navigateToCourse('MATH 207')">MATH 207</button>
+        <button class="subject-btn" onclick="navigateToCourse('CSE 211')">CSE 211</button>
+        <button class="subject-btn" onclick="navigateToCourse('CSE 212')">CSE 212</button>
+        <button class="subject-btn" onclick="navigateToCourse('Routine')">Routine</button>
     </div>
+
+    <footer>
+        <p>Copyright Md Robiul Hossain (2025)</p>
+        <p>Note: This is only for Spring 25 3rd Semester</p>
+        <p id="current-date"></p>
+    </footer>
 
     <script>
         function navigateToCourse(courseName) {
             window.location.href = `course.html?course=${encodeURIComponent(courseName)}`;
         }
+
+        // Add current date
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString();
     </script>
 
 </body>

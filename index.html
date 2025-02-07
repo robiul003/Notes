@@ -116,6 +116,44 @@
             display: none;
         }
 
+        .routine-container {
+            display: none;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            margin-top: 20px;
+        }
+
+        .routine-section {
+            margin-bottom: 30px;
+        }
+
+        .routine-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #ffd700;
+        }
+
+        .routine-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .routine-table th,
+        .routine-table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .routine-table th {
+            background: rgba(255, 255, 255, 0.2);
+            font-weight: 500;
+        }
+
         @keyframes fadeInDown {
             from {
                 opacity: 0;
@@ -154,6 +192,12 @@
                 transform: none;
                 margin-top: 20px;
             }
+
+            .routine-table th,
+            .routine-table td {
+                padding: 8px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -172,10 +216,14 @@
                 <button class="subject-btn" data-course="MATH 207">MATH 207</button>
                 <button class="subject-btn" data-course="CSE 211">CSE 211</button>
                 <button class="subject-btn" data-course="CSE 212">CSE 212</button>
-                <button class="subject-btn">Routine</button>
+                <button class="subject-btn" id="routineBtn">Routine</button>
             </div>
 
             <div class="button-grid sub-options" id="subOptions"></div>
+
+            <div class="routine-container" id="routineContainer">
+                <!-- Routine data will be injected here -->
+            </div>
         </div>
     </div>
 
@@ -194,6 +242,42 @@
             'CSE 212': ['Assignment', 'Problems']
         };
 
+        const routineData = {
+            sections: ['A', 'B', 'C', 'D'],
+            days: ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday'],
+            times: ['8:00 AM', '9:30 AM', '11:00 AM', '12:30 PM', '2:00 PM', '3:30 PM'],
+            routine: {
+                A: [
+                    ['EEE 111', 'CSE 211', 'Break', 'MATH 207', 'EEE 112', 'CSE 212'],
+                    ['CSE 211', 'EEE 111', 'Break', 'EEE 112', 'MATH 207', 'CSE 212'],
+                    ['MATH 207', 'EEE 112', 'Break', 'CSE 211', 'EEE 111', 'CSE 212'],
+                    ['EEE 112', 'MATH 207', 'Break', 'EEE 111', 'CSE 211', 'CSE 212'],
+                    ['CSE 212', 'EEE 111', 'Break', 'MATH 207', 'CSE 211', 'EEE 112']
+                ],
+                B: [
+                    ['CSE 211', 'EEE 112', 'Break', 'EEE 111', 'MATH 207', 'CSE 212'],
+                    ['EEE 111', 'CSE 211', 'Break', 'MATH 207', 'EEE 112', 'CSE 212'],
+                    ['EEE 112', 'MATH 207', 'Break', 'CSE 211', 'EEE 111', 'CSE 212'],
+                    ['MATH 207', 'EEE 111', 'Break', 'EEE 112', 'CSE 211', 'CSE 212'],
+                    ['CSE 212', 'CSE 211', 'Break', 'EEE 111', 'MATH 207', 'EEE 112']
+                ],
+                C: [
+                    ['MATH 207', 'EEE 111', 'Break', 'CSE 211', 'EEE 112', 'CSE 212'],
+                    ['EEE 112', 'CSE 211', 'Break', 'EEE 111', 'MATH 207', 'CSE 212'],
+                    ['EEE 111', 'MATH 207', 'Break', 'EEE 112', 'CSE 211', 'CSE 212'],
+                    ['CSE 211', 'EEE 112', 'Break', 'MATH 207', 'EEE 111', 'CSE 212'],
+                    ['CSE 212', 'EEE 112', 'Break', 'EEE 111', 'CSE 211', 'MATH 207']
+                ],
+                D: [
+                    ['EEE 112', 'MATH 207', 'Break', 'EEE 111', 'CSE 211', 'CSE 212'],
+                    ['EEE 111', 'EEE 112', 'Break', 'CSE 211', 'MATH 207', 'CSE 212'],
+                    ['CSE 211', 'EEE 111', 'Break', 'MATH 207', 'EEE 112', 'CSE 212'],
+                    ['MATH 207', 'CSE 211', 'Break', 'EEE 112', 'EEE 111', 'CSE 212'],
+                    ['CSE 212', 'MATH 207', 'Break', 'EEE 111', 'EEE 112', 'CSE 211']
+                ]
+            }
+        };
+
         // Add current date
         const dateElement = document.getElementById('current-date');
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -208,12 +292,18 @@
             });
         });
 
+        document.getElementById('routineBtn').addEventListener('click', showRoutine);
+
         function showSubOptions(course) {
             const mainOptions = document.querySelector('.main-options');
             const subOptions = document.getElementById('subOptions');
             const pageTitle = document.getElementById('pageTitle');
             const backBtn = document.querySelector('.back-btn');
+            const routineContainer = document.getElementById('routineContainer');
 
+            // Hide routine container if visible
+            routineContainer.style.display = 'none';
+            
             // Update title and show back button
             pageTitle.textContent = course;
             backBtn.style.display = 'block';
@@ -240,18 +330,65 @@
             });
         }
 
+        function showRoutine() {
+            const mainOptions = document.querySelector('.main-options');
+            const subOptions = document.getElementById('subOptions');
+            const pageTitle = document.getElementById('pageTitle');
+            const backBtn = document.querySelector('.back-btn');
+            const routineContainer = document.getElementById('routineContainer');
+
+            // Update title and show back button
+            pageTitle.textContent = 'Routine';
+            backBtn.style.display = 'block';
+            
+            // Hide main options and sub-options
+            mainOptions.style.display = 'none';
+            subOptions.style.display = 'none';
+            
+            // Generate routine content
+            routineContainer.innerHTML = routineData.sections.map(section => `
+                <div class="routine-section">
+                    <h2>Section ${section}</h2>
+                    <table class="routine-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                ${routineData.days.map(day => `<th>${day}</th>`).join('')}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${routineData.times.map((time, i) => `
+                                <tr>
+                                    <td>${time}</td>
+                                    ${routineData.routine[section][i].map(course => `
+                                        <td>${course}</td>
+                                    `).join('')}
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `).join('');
+            
+            // Show routine container with animation
+            routineContainer.style.display = 'block';
+            routineContainer.classList.add('fadeInUp');
+        }
+
         function goBack() {
             const mainOptions = document.querySelector('.main-options');
             const subOptions = document.getElementById('subOptions');
             const pageTitle = document.getElementById('pageTitle');
             const backBtn = document.querySelector('.back-btn');
+            const routineContainer = document.getElementById('routineContainer');
 
             // Reset title and hide back button
             pageTitle.textContent = 'Note Treasures';
             backBtn.style.display = 'none';
             
-            // Hide sub-options
+            // Hide sub-options and routine container
             subOptions.style.display = 'none';
+            routineContainer.style.display = 'none';
             
             // Show main options with animation
             mainOptions.style.display = 'grid';

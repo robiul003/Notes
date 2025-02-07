@@ -6,196 +6,29 @@
     <title>Note Treasures - Spring 25</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .container {
-            text-align: center;
-        }
-
-        .title-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .letter {
-            font-size: 4rem;
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            color: white;
-            position: relative;
-            opacity: 0;
-            animation: fadeInDrip 1.5s ease-in-out forwards;
-        }
-
-        .letter:nth-child(n) {
-            animation-delay: calc(var(--index) * 0.1s);
-        }
-
-        @keyframes fadeInDrip {
-            0% { opacity: 0; transform: translateY(-100px) scale(1.2); filter: blur(10px); }
-            50% { opacity: 1; transform: translateY(10px) scale(1); filter: blur(2px); }
-            100% { opacity: 1; transform: translateY(0); filter: blur(0); }
-        }
-
-        .beta-tag {
-            color: #ffd700;
-            font-size: 1.2rem;
-            font-family: 'Poppins', sans-serif;
-            letter-spacing: 2px;
-            font-weight: 500;
-            margin-bottom: 20px;
-        }
-
-        .button-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            padding: 20px 0;
-        }
-
-        .subject-btn, .option-btn {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            border: none;
-            padding: 15px;
-            border-radius: 10px;
-            color: white;
-            font-size: 1.2rem;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        .subject-btn:hover, .option-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .options-container {
-            display: none;
-            flex-direction: column;
-            gap: 10px;
-            padding: 10px;
-        }
-
-        footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0,0,0,0.2);
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            color: rgba(255,255,255,0.8);
-            font-size: 0.9rem;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        @media (max-width: 768px) {
-            .letter {
-                font-size: 2.8rem;
-            }
-            footer {
-                flex-direction: column;
-                text-align: center;
-                gap: 5px;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { min-height: 100vh; background: linear-gradient(135deg, #667eea, #764ba2); text-align: center; padding: 20px; }
+        h1 { color: white; font-size: 3rem; font-family: 'Playfair Display', serif; }
+        .button-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 40px 0; }
+        .subject-btn { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(5px); border: none; padding: 20px; border-radius: 10px; color: white; font-size: 1.2rem; cursor: pointer; transition: all 0.3s; }
+        .subject-btn:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-3px); }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="title-container">
-            <span class="letter" style="--index: 0;">N</span>
-            <span class="letter" style="--index: 1;">o</span>
-            <span class="letter" style="--index: 2;">t</span>
-            <span class="letter" style="--index: 3;">e</span>
-            <span class="letter" style="--index: 4;"> </span>
-            <span class="letter" style="--index: 5;">T</span>
-            <span class="letter" style="--index: 6;">r</span>
-            <span class="letter" style="--index: 7;">e</span>
-            <span class="letter" style="--index: 8;">a</span>
-            <span class="letter" style="--index: 9;">s</span>
-            <span class="letter" style="--index: 10;">u</span>
-            <span class="letter" style="--index: 11;">r</span>
-            <span class="letter" style="--index: 12;">e</span>
-            <span class="letter" style="--index: 13;">s</span>
-        </div>
-        <div class="beta-tag">Beta Version</div>
-
-        <div class="button-grid">
-            <button class="subject-btn" onclick="toggleOptions('eee111')">EEE 111</button>
-            <div id="eee111" class="options-container">
-                <button class="option-btn">Books</button>
-                <button class="option-btn">Hand Notes</button>
-            </div>
-
-            <button class="subject-btn" onclick="toggleOptions('eee112')">EEE 112</button>
-            <div id="eee112" class="options-container">
-                <button class="option-btn">Lab Reports</button>
-            </div>
-
-            <button class="subject-btn" onclick="toggleOptions('math207')">MATH 207</button>
-            <div id="math207" class="options-container">
-                <button class="option-btn">Hand Notes</button>
-            </div>
-
-            <button class="subject-btn" onclick="toggleOptions('cse211')">CSE 211</button>
-            <div id="cse211" class="options-container">
-                <button class="option-btn">Books</button>
-                <button class="option-btn">Hand Notes</button>
-            </div>
-
-            <button class="subject-btn" onclick="toggleOptions('cse212')">CSE 212</button>
-            <div id="cse212" class="options-container">
-                <button class="option-btn">Assignment</button>
-                <button class="option-btn">Problems</button>
-            </div>
-
-            <button class="subject-btn">Routine</button>
-        </div>
+    <h1>Note Treasures</h1>
+    <div class="button-grid">
+        <button class="subject-btn" onclick="navigateToCourse('EEE 111')">EEE 111</button>
+        <button class="subject-btn" onclick="navigateToCourse('EEE 112')">EEE 112</button>
+        <button class="subject-btn" onclick="navigateToCourse('MATH 207')">MATH 207</button>
+        <button class="subject-btn" onclick="navigateToCourse('CSE 211')">CSE 211</button>
+        <button class="subject-btn" onclick="navigateToCourse('CSE 212')">CSE 212</button>
+        <button class="subject-btn" onclick="navigateToCourse('Routine')">Routine</button>
     </div>
 
-    <footer>
-        <div>Copyright Md Robiul Hossain (2025)</div>
-        <div>Note: This is only for Spring 25 3rd Semester</div>
-        <div id="current-date"></div>
-    </footer>
-
     <script>
-        // Add current date
-        document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-
-        // Function to toggle options
-        function toggleOptions(subjectId) {
-            const options = document.getElementById(subjectId);
-            const allOptions = document.querySelectorAll('.options-container');
-
-            allOptions.forEach(option => {
-                if (option !== options) option.style.display = 'none';
-            });
-
-            options.style.display = options.style.display === 'flex' ? 'none' : 'flex';
+        function navigateToCourse(courseName) {
+            window.location.href = `course.html?course=${encodeURIComponent(courseName)}`;
         }
     </script>
 

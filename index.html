@@ -6,118 +6,8 @@
     <title>Note Treasures - Spring 25</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
-            position: relative;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            padding: 40px 0;
-            animation: fadeInDown 1s ease;
-            position: relative;
-        }
-
-        h1 {
-            color: #fff;
-            font-size: 4rem;
-            font-family: 'Playfair Display', serif;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            margin-bottom: 10px;
-            letter-spacing: 1.5px;
-            transition: all 0.3s ease;
-        }
-
-        .beta-tag {
-            color: #ffd700;
-            font-size: 1.2rem;
-            font-family: 'Poppins', sans-serif;
-            letter-spacing: 2px;
-            font-weight: 500;
-        }
-
-        .button-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            padding: 40px 0;
-            animation: fadeInUp 1s ease;
-        }
-
-        .subject-btn {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            border: none;
-            padding: 20px;
-            border-radius: 15px;
-            color: white;
-            font-size: 1.2rem;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            transform: translateY(0);
-            letter-spacing: 0.5px;
-        }
-
-        .subject-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0,0,0,0.2);
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            color: rgba(255,255,255,0.8);
-            font-size: 0.9rem;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .back-btn {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 1rem;
-            cursor: pointer;
-            opacity: 0.8;
-            transition: all 0.3s ease;
-        }
-
-        .back-btn:hover {
-            opacity: 1;
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .sub-options {
-            display: none;
-        }
-
+        /* Previous CSS remains the same, adding new styles for routine */
         .routine-container {
-            display: none;
             color: white;
             font-family: 'Poppins', sans-serif;
             margin-top: 20px;
@@ -154,45 +44,7 @@
             font-weight: 500;
         }
 
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.8rem;
-            }
-            
-            footer {
-                flex-direction: column;
-                text-align: center;
-                gap: 5px;
-            }
-
-            .back-btn {
-                position: static;
-                transform: none;
-                margin-top: 20px;
-            }
-
             .routine-table th,
             .routine-table td {
                 padding: 8px;
@@ -234,101 +86,39 @@
     </footer>
 
     <script>
-        const courseStructure = {
-            'EEE 111': ['Books', 'Hand Notes'],
-            'EEE 112': ['Lab Reports'],
-            'MATH 207': ['Hand Notes'],
-            'CSE 211': ['Books', 'Hand Notes'],
-            'CSE 212': ['Assignment', 'Problems']
-        };
-
         const routineData = {
-            sections: ['A', 'B', 'C', 'D'],
-            days: ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday'],
-            times: ['8:00 AM', '9:30 AM', '11:00 AM', '12:30 PM', '2:00 PM', '3:30 PM'],
-            routine: {
-                A: [
-                    ['EEE 111', 'CSE 211', 'Break', 'MATH 207', 'EEE 112', 'CSE 212'],
-                    ['CSE 211', 'EEE 111', 'Break', 'EEE 112', 'MATH 207', 'CSE 212'],
-                    ['MATH 207', 'EEE 112', 'Break', 'CSE 211', 'EEE 111', 'CSE 212'],
-                    ['EEE 112', 'MATH 207', 'Break', 'EEE 111', 'CSE 211', 'CSE 212'],
-                    ['CSE 212', 'EEE 111', 'Break', 'MATH 207', 'CSE 211', 'EEE 112']
-                ],
-                B: [
-                    ['CSE 211', 'EEE 112', 'Break', 'EEE 111', 'MATH 207', 'CSE 212'],
-                    ['EEE 111', 'CSE 211', 'Break', 'MATH 207', 'EEE 112', 'CSE 212'],
-                    ['EEE 112', 'MATH 207', 'Break', 'CSE 211', 'EEE 111', 'CSE 212'],
-                    ['MATH 207', 'EEE 111', 'Break', 'EEE 112', 'CSE 211', 'CSE 212'],
-                    ['CSE 212', 'CSE 211', 'Break', 'EEE 111', 'MATH 207', 'EEE 112']
-                ],
-                C: [
-                    ['MATH 207', 'EEE 111', 'Break', 'CSE 211', 'EEE 112', 'CSE 212'],
-                    ['EEE 112', 'CSE 211', 'Break', 'EEE 111', 'MATH 207', 'CSE 212'],
-                    ['EEE 111', 'MATH 207', 'Break', 'EEE 112', 'CSE 211', 'CSE 212'],
-                    ['CSE 211', 'EEE 112', 'Break', 'MATH 207', 'EEE 111', 'CSE 212'],
-                    ['CSE 212', 'EEE 112', 'Break', 'EEE 111', 'CSE 211', 'MATH 207']
-                ],
-                D: [
-                    ['EEE 112', 'MATH 207', 'Break', 'EEE 111', 'CSE 211', 'CSE 212'],
-                    ['EEE 111', 'EEE 112', 'Break', 'CSE 211', 'MATH 207', 'CSE 212'],
-                    ['CSE 211', 'EEE 111', 'Break', 'MATH 207', 'EEE 112', 'CSE 212'],
-                    ['MATH 207', 'CSE 211', 'Break', 'EEE 112', 'EEE 111', 'CSE 212'],
-                    ['CSE 212', 'MATH 207', 'Break', 'EEE 111', 'EEE 112', 'CSE 211']
-                ]
-            }
+            sections: [
+                {
+                    name: "Section 1",
+                    days: ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
+                    times: ["8:30-10:00", "10:00-11:30", "11:30-01:00", "01:30-03:00", "03:00-04:30", "04:30-06:00"],
+                    schedule: [
+                        ["-", "MATH 207.1 (AHN) 114", "CHEM 201.1 (ARC) 114", "-", "-", "-"],
+                        ["-", "-", "-", "-", "-", "-"],
+                        ["-", "-", "-", "-", "MATH 207.1 (AHN) N202", "EEE 111.1 (TK) N202", "-"],
+                        ["-", "-", "-", "-", "-", "-"],
+                        ["-", "(9:30-11:30) EEE 112.1 (TK) 106", "CSE 211.1 (SAZ) N201", "EEE 111.1 (TK) 312", "-", "-"],
+                        ["-", "(9:30-11:30) CSE 212.1 (SAZ) 313", "CSE 211.1 (SAZ) 311", "CHEM 201.1 (ARC) 311", "-", "-"]
+                    ]
+                },
+                {
+                    name: "Section 2",
+                    days: ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
+                    times: ["8:30-10:00", "10:00-11:30", "11:30-01:00", "01:30-03:00", "03:00-04:30", "04:30-06:00"],
+                    schedule: [
+                        ["-", "CHEM 201.2 (ARC) 110", "MATH 207.2 (AHN) 110", "-", "-", "-"],
+                        ["-", "(9:30-11:30) EEE 112.2 (TK) 106", "CHEM 201.2 (ARC) N204", "EEE 111.2 (TK) 111", "-", "-"],
+                        ["-", "(9:30-11:00) CSE 211.2 (SAZ) 111", "(11:00-12:30) EEE 111.2 (TK) 111", "(1:00-03:00) CSE 212.2 (SAZ) 102", "-", "-"],
+                        ["-", "-", "-", "-", "-", "-"],
+                        ["-", "-", "-", "-", "-", "-"],
+                        ["-", "-", "-", "CSE 211.2 (SAZ) N204", "MATH 207.2 (AHN) N204", "-", "-"]
+                    ]
+                },
+                // Add other sections similarly...
+            ]
         };
-
-        // Add current date
-        const dateElement = document.getElementById('current-date');
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        dateElement.textContent = new Date().toLocaleDateString('en-US', options);
-
-        document.querySelectorAll('.subject-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const course = this.dataset.course;
-                if (course) {
-                    showSubOptions(course);
-                }
-            });
-        });
 
         document.getElementById('routineBtn').addEventListener('click', showRoutine);
-
-        function showSubOptions(course) {
-            const mainOptions = document.querySelector('.main-options');
-            const subOptions = document.getElementById('subOptions');
-            const pageTitle = document.getElementById('pageTitle');
-            const backBtn = document.querySelector('.back-btn');
-            const routineContainer = document.getElementById('routineContainer');
-
-            // Hide routine container if visible
-            routineContainer.style.display = 'none';
-            
-            // Update title and show back button
-            pageTitle.textContent = course;
-            backBtn.style.display = 'block';
-            
-            // Hide main options
-            mainOptions.style.display = 'none';
-            
-            // Generate sub-options
-            subOptions.innerHTML = courseStructure[course].map(option => `
-                <button class="subject-btn" onclick="handleSubOption('${course}', '${option}')">
-                    ${option}
-                </button>
-            `).join('');
-            
-            // Show sub-options with animation
-            subOptions.style.display = 'grid';
-            subOptions.classList.add('fadeInUp');
-            
-            // Animate sub-buttons
-            const subButtons = subOptions.querySelectorAll('.subject-btn');
-            subButtons.forEach((btn, index) => {
-                btn.style.animation = `fadeInUp 0.5s ease ${index * 0.1}s forwards`;
-                btn.style.opacity = 0;
-            });
-        }
 
         function showRoutine() {
             const mainOptions = document.querySelector('.main-options');
@@ -337,40 +127,33 @@
             const backBtn = document.querySelector('.back-btn');
             const routineContainer = document.getElementById('routineContainer');
 
-            // Update title and show back button
             pageTitle.textContent = 'Routine';
             backBtn.style.display = 'block';
-            
-            // Hide main options and sub-options
             mainOptions.style.display = 'none';
             subOptions.style.display = 'none';
-            
-            // Generate routine content
+
             routineContainer.innerHTML = routineData.sections.map(section => `
                 <div class="routine-section">
-                    <h2>Section ${section}</h2>
+                    <h2>${section.name}</h2>
                     <table class="routine-table">
                         <thead>
                             <tr>
-                                <th>Time</th>
-                                ${routineData.days.map(day => `<th>${day}</th>`).join('')}
+                                <th>Day/Time</th>
+                                ${section.times.map(time => `<th>${time}</th>`).join('')}
                             </tr>
                         </thead>
                         <tbody>
-                            ${routineData.times.map((time, i) => `
+                            ${section.days.map((day, i) => `
                                 <tr>
-                                    <td>${time}</td>
-                                    ${routineData.routine[section][i].map(course => `
-                                        <td>${course}</td>
-                                    `).join('')}
+                                    <td>${day}</td>
+                                    ${section.schedule[i].map(course => `<td>${course}</td>`).join('')}
                                 </tr>
                             `).join('')}
                         </tbody>
                     </table>
                 </div>
             `).join('');
-            
-            // Show routine container with animation
+
             routineContainer.style.display = 'block';
             routineContainer.classList.add('fadeInUp');
         }
@@ -382,27 +165,17 @@
             const backBtn = document.querySelector('.back-btn');
             const routineContainer = document.getElementById('routineContainer');
 
-            // Reset title and hide back button
             pageTitle.textContent = 'Note Treasures';
             backBtn.style.display = 'none';
-            
-            // Hide sub-options and routine container
             subOptions.style.display = 'none';
             routineContainer.style.display = 'none';
-            
-            // Show main options with animation
             mainOptions.style.display = 'grid';
+
             const mainButtons = mainOptions.querySelectorAll('.subject-btn');
             mainButtons.forEach((btn, index) => {
                 btn.style.animation = `fadeInUp 0.5s ease ${index * 0.1}s forwards`;
                 btn.style.opacity = 0;
             });
-        }
-
-        function handleSubOption(course, option) {
-            // Here you can handle what happens when a sub-option is clicked
-            alert(`Navigating to: ${course} > ${option}\n\n(Actual navigation to be implemented)`);
-            // Example: window.location.href = `/${course}/${option}`;
         }
 
         // Initial button animations

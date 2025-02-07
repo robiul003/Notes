@@ -24,6 +24,15 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
             animation: fadeInDown 1s ease;
         }
+        .beta-tag {
+            color: #ffd700;
+            font-size: 1.2rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-top: 5px;
+            animation: fadeInDown 1s ease;
+        }
         .button-grid { 
             display: grid; 
             grid-template-columns: repeat(3, minmax(150px, 1fr)); 
@@ -62,6 +71,8 @@
 <body>
 
     <h1>Note Treasures</h1>
+    <div class="beta-tag">Beta Version</div>
+
     <div class="button-grid">
         <button class="subject-btn" onclick="navigateToCourse('EEE 111')" style="animation-delay: 0.1s;">EEE 111</button>
         <button class="subject-btn" onclick="navigateToCourse('EEE 112')" style="animation-delay: 0.2s;">EEE 112</button>

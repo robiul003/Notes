@@ -16,40 +16,29 @@
             min-height: 100vh;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            position: relative;
         }
 
         .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
             text-align: center;
+            padding: 40px 0;
+            animation: fadeInDown 1s ease;
+            position: relative;
         }
 
-        .title-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .letter {
+        h1 {
+            color: #fff;
             font-size: 4rem;
             font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            color: white;
-            position: relative;
-            opacity: 0;
-            animation: fadeInDrip 1.5s ease-in-out forwards;
-        }
-
-        .letter:nth-child(n) {
-            animation-delay: calc(var(--index) * 0.1s);
-        }
-
-        @keyframes fadeInDrip {
-            0% { opacity: 0; transform: translateY(-100px) scale(1.2); filter: blur(10px); }
-            50% { opacity: 1; transform: translateY(10px) scale(1); filter: blur(2px); }
-            100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+            letter-spacing: 1.5px;
+            transition: all 0.3s ease;
         }
 
         .beta-tag {
@@ -58,42 +47,36 @@
             font-family: 'Poppins', sans-serif;
             letter-spacing: 2px;
             font-weight: 500;
-            margin-bottom: 20px;
         }
 
         .button-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
-            padding: 20px 0;
+            padding: 40px 0;
+            animation: fadeInUp 1s ease;
         }
 
-        .subject-btn, .option-btn {
+        .subject-btn {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(5px);
             border: none;
-            padding: 15px;
-            border-radius: 10px;
+            padding: 20px;
+            border-radius: 15px;
             color: white;
             font-size: 1.2rem;
             font-family: 'Poppins', sans-serif;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
-            width: 100%;
+            transform: translateY(0);
+            letter-spacing: 0.5px;
         }
 
-        .subject-btn:hover, .option-btn:hover {
+        .subject-btn:hover {
             background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px);
+            transform: translateY(-5px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .options-container {
-            display: none;
-            flex-direction: column;
-            gap: 10px;
-            padding: 10px;
         }
 
         footer {
@@ -110,69 +93,89 @@
             font-family: 'Poppins', sans-serif;
         }
 
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            opacity: 1;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .sub-options {
+            display: none;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         @media (max-width: 768px) {
-            .letter {
+            h1 {
                 font-size: 2.8rem;
             }
+            
             footer {
                 flex-direction: column;
                 text-align: center;
                 gap: 5px;
             }
+
+            .back-btn {
+                position: static;
+                transform: none;
+                margin-top: 20px;
+            }
         }
     </style>
 </head>
 <body>
-
     <div class="container">
-        <div class="title-container">
-            <span class="letter" style="--index: 0;">N</span>
-            <span class="letter" style="--index: 1;">o</span>
-            <span class="letter" style="--index: 2;">t</span>
-            <span class="letter" style="--index: 3;">e</span>
-            <span class="letter" style="--index: 4;"> </span>
-            <span class="letter" style="--index: 5;">T</span>
-            <span class="letter" style="--index: 6;">r</span>
-            <span class="letter" style="--index: 7;">e</span>
-            <span class="letter" style="--index: 8;">a</span>
-            <span class="letter" style="--index: 9;">s</span>
-            <span class="letter" style="--index: 10;">u</span>
-            <span class="letter" style="--index: 11;">r</span>
-            <span class="letter" style="--index: 12;">e</span>
-            <span class="letter" style="--index: 13;">s</span>
-        </div>
-        <div class="beta-tag">Beta Version</div>
+        <header>
+            <button class="back-btn" onclick="goBack()" style="display: none;">← Back</button>
+            <h1 id="pageTitle">Note Treasures</h1>
+            <div class="beta-tag">Beta Version</div>
+        </header>
 
-        <div class="button-grid">
-            <button class="subject-btn" onclick="toggleOptions('eee111')">EEE 111</button>
-            <div id="eee111" class="options-container">
-                <button class="option-btn">Books</button>
-                <button class="option-btn">Hand Notes</button>
+        <div class="main-content">
+            <div class="button-grid main-options">
+                <button class="subject-btn" data-course="EEE 111">EEE 111</button>
+                <button class="subject-btn" data-course="EEE 112">EEE 112</button>
+                <button class="subject-btn" data-course="MATH 207">MATH 207</button>
+                <button class="subject-btn" data-course="CSE 211">CSE 211</button>
+                <button class="subject-btn" data-course="CSE 212">CSE 212</button>
+                <button class="subject-btn">Routine</button>
             </div>
 
-            <button class="subject-btn" onclick="toggleOptions('eee112')">EEE 112</button>
-            <div id="eee112" class="options-container">
-                <button class="option-btn">Lab Reports</button>
-            </div>
-
-            <button class="subject-btn" onclick="toggleOptions('math207')">MATH 207</button>
-            <div id="math207" class="options-container">
-                <button class="option-btn">Hand Notes</button>
-            </div>
-
-            <button class="subject-btn" onclick="toggleOptions('cse211')">CSE 211</button>
-            <div id="cse211" class="options-container">
-                <button class="option-btn">Books</button>
-                <button class="option-btn">Hand Notes</button>
-            </div>
-
-            <button class="subject-btn" onclick="toggleOptions('cse212')">CSE 212</button>
-            <div id="cse212" class="options-container">
-                <button class="option-btn">Assignment</button>
-                <button class="option-btn">Problems</button>
-            </div>
-
-            <button class="subject-btn">Routine</button>
+            <div class="button-grid sub-options" id="subOptions"></div>
         </div>
     </div>
 
@@ -183,21 +186,94 @@
     </footer>
 
     <script>
+        const courseStructure = {
+            'EEE 111': ['Books', 'Hand Notes'],
+            'EEE 112': ['Lab Reports'],
+            'MATH 207': ['Hand Notes'],
+            'CSE 211': ['Books', 'Hand Notes'],
+            'CSE 212': ['Assignment', 'Problems']
+        };
+
         // Add current date
-        document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        const dateElement = document.getElementById('current-date');
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        dateElement.textContent = new Date().toLocaleDateString('en-US', options);
 
-        // Function to toggle options
-        function toggleOptions(subjectId) {
-            const options = document.getElementById(subjectId);
-            const allOptions = document.querySelectorAll('.options-container');
-
-            allOptions.forEach(option => {
-                if (option !== options) option.style.display = 'none';
+        document.querySelectorAll('.subject-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const course = this.dataset.course;
+                if (course) {
+                    showSubOptions(course);
+                }
             });
+        });
 
-            options.style.display = options.style.display === 'flex' ? 'none' : 'flex';
+        function showSubOptions(course) {
+            const mainOptions = document.querySelector('.main-options');
+            const subOptions = document.getElementById('subOptions');
+            const pageTitle = document.getElementById('pageTitle');
+            const backBtn = document.querySelector('.back-btn');
+
+            // Update title and show back button
+            pageTitle.textContent = course;
+            backBtn.style.display = 'block';
+            
+            // Hide main options
+            mainOptions.style.display = 'none';
+            
+            // Generate sub-options
+            subOptions.innerHTML = courseStructure[course].map(option => `
+                <button class="subject-btn" onclick="handleSubOption('${course}', '${option}')">
+                    ${option}
+                </button>
+            `).join('');
+            
+            // Show sub-options with animation
+            subOptions.style.display = 'grid';
+            subOptions.classList.add('fadeInUp');
+            
+            // Animate sub-buttons
+            const subButtons = subOptions.querySelectorAll('.subject-btn');
+            subButtons.forEach((btn, index) => {
+                btn.style.animation = `fadeInUp 0.5s ease ${index * 0.1}s forwards`;
+                btn.style.opacity = 0;
+            });
         }
-    </script>
 
+        function goBack() {
+            const mainOptions = document.querySelector('.main-options');
+            const subOptions = document.getElementById('subOptions');
+            const pageTitle = document.getElementById('pageTitle');
+            const backBtn = document.querySelector('.back-btn');
+
+            // Reset title and hide back button
+            pageTitle.textContent = 'Note Treasures';
+            backBtn.style.display = 'none';
+            
+            // Hide sub-options
+            subOptions.style.display = 'none';
+            
+            // Show main options with animation
+            mainOptions.style.display = 'grid';
+            const mainButtons = mainOptions.querySelectorAll('.subject-btn');
+            mainButtons.forEach((btn, index) => {
+                btn.style.animation = `fadeInUp 0.5s ease ${index * 0.1}s forwards`;
+                btn.style.opacity = 0;
+            });
+        }
+
+        function handleSubOption(course, option) {
+            // Here you can handle what happens when a sub-option is clicked
+            alert(`Navigating to: ${course} > ${option}\n\n(Actual navigation to be implemented)`);
+            // Example: window.location.href = `/${course}/${option}`;
+        }
+
+        // Initial button animations
+        const buttons = document.querySelectorAll('.subject-btn');
+        buttons.forEach((btn, index) => {
+            btn.style.animation = `fadeInUp 0.5s ease ${index * 0.1}s forwards`;
+            btn.style.opacity = 0;
+        });
+    </script>
 </body>
 </html>
